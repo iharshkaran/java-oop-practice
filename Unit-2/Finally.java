@@ -1,13 +1,20 @@
 public class Finally {
     public static void main(String[] args) {
-        try{
+
+        try {
             int a = 10;
             int b = 0;
-            int c = a / b; // This will throw ArithmeticException
-        } catch (ArithmeticException e) {
-            System.out.println("Cannot divide by zero");
-        } finally {
-            System.out.println("This block will always execute");
+            int c = a / b;   // exception
+
+            System.out.println(c);
+        } 
+        catch (ArithmeticException e) {
+            System.out.println("Exception handled");
+        } 
+        finally {
+            System.out.println("Finally block always executes");
         }
+
+        System.out.println("Program continues...");
     }
 }

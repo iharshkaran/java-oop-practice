@@ -9,25 +9,26 @@ public class ArrayListExample {
         fruits.add("Cherry");
         fruits.add("Date");
         fruits.add("grapes");
+    
+        // Displaying the ArrayList
+        System.out.println("Fruits: " + fruits); // [Apple, Banana, Cherry, Date, grapes]
 
         // Accessing elements
-        System.out.println("First element: " + fruits.get(0)); // Apple
-        System.out.println("Second element: " + fruits.get(1)); // Banana
-        System.out.println("Third element: " + fruits.get(2)); // Cherry
-        System.out.println("Fourth element: " + fruits.get(3)); // Date
-        System.out.println("Fifth element: " + fruits.get(4)); // grapes
-        // Removing an element
-        fruits.remove(1); // Removes "Banana"
+        System.out.println("fruit at index 2 : " + fruits.get(2)); // Cherry
 
         // Methods of ArrayList
-        System.out.println("Size of the ArrayList: " + fruits.size()); // 4
-        System.out.println("Is the ArrayList empty? " + fruits.isEmpty()); // false
-        System.out.println("Does the ArrayList contain 'Cherry'? " + fruits.contains("Cherry")); // true
-        System.out.println("Index of 'Date': " + fruits.indexOf("Date")); // 1          
-        // Iterating through the ArrayList
-        System.out.println("Elements in the ArrayList:");
-        for (String str : fruits) {
-            System.out.println(str);
-        }
+        fruits.set(2, "Mango"); // Update element at index 2
+        System.out.println("Updated fruit at index 2 : " + fruits.get(2)); // Mango
+
+        fruits.remove("Banana"); // Remove element by value
+        fruits.remove(0); // Remove element by index (removes "Apple")
+        System.out.println("Fruits Now: " + fruits); // [Mango, Date, grapes]
+
+        System.out.println("Number of fruits: " + fruits.size()); //3
+        
+        // printing each fruit using a for-each loop
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        } 
     }
 }

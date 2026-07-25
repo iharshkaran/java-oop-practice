@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+#text-box::-webkit-scrollbar{
+  display: none;
+}
+
+#right-box::-webkit-scrollbar{
+    width: 10px;
+}
+
+#right-box::-webkit-scrollbar-thumb{
+    background: #acacac;
+    border-radius: 999px;
+    border: 1.5px solid rgb(255, 255, 255);
+}
+#right-box::-webkit-scrollbar-track{
+    background:rgb(51, 51, 51);
+    border-radius: 999px;
+}
+
+#notes::-webkit-scrollbar{
+    display: none;
+}

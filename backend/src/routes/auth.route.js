@@ -3,6 +3,13 @@ const router = express.Router();
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
+// Cookie Configuration Options
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,      // Render (HTTPS) ke liye mandatory
+  sameSite: "none",  // Cross-domain (localhost to render) ke liye mandatory
+};
+
 // Register User
 router.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
@@ -17,7 +24,8 @@ router.post("/register", async (req, res) => {
 
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
 
-        res.cookie("token", token);
+        // Send Secure Cookie
+        res.cookie("token", token, cookieOptions);
 
         res.status(201).json({
             message: "User registered successfully",
@@ -42,7 +50,9 @@ router.post("/login", async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        res.cookie("token", token);
+
+        // Send Secure Cookie
+        res.cookie("token", token, cookieOptions);
 
         res.status(200).json({
             message: "User logged in successfully",
@@ -55,6 +65,5 @@ router.post("/login", async (req, res) => {
         });
     }
 });
-
 
 module.exports = router;

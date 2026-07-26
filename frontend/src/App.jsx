@@ -1,35 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import LeftPane from './components/LeftPane'
 import RightPane from './components/RightPane'
 import AuthPage from './pages/AuthPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 axios.defaults.withCredentials = true;
 
 const API_BASE_URL = `${import.meta.env.VITE_API_URL}/notes`;
 
 const App = () => {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [editId, setEditId] = useState(null)
-  const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [editId, setEditId] = useState(null);
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // 1. User Authentication State
+  const [user, setUser] = useState(null);
+  const [authChecking, setAuthChecking] = useState(true);
 
   // Fetch all notes
   const fetchData = async () => {
     try {
       setError(null);
-      const response = await axios.get(API_BASE_URL,{withCredentials: true});
+      const response = await axios.get(API_BASE_URL, { withCredentials: true });
       setNotes(response.data.notes || []);
+      
+      // if notes fetched successfully, set user as logged in
+      setUser(true); 
     } catch (err) {
       console.error("Error fetching notes:", err);
-      setError("Failed to load notes. Please login again or check server.");
+      // if backend returns 401 (Unauthorized) or 403 (Forbidden), set user as not logged in
+      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+        setUser(null);
+      } else {
+        setError("Failed to load notes. Please check server.");
+      }
+    } finally {
+      setAuthChecking(false);
     }
   };
-
- 
 
   useEffect(() => {
     fetchData();
@@ -114,16 +127,35 @@ const App = () => {
     </div>
   );
 
+  // Initially, while checking authentication, show a loading message
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-[#111111] text-white flex items-center justify-center">
+        <p className="text-xl">Checking authentication...</p>
+      </div>
+    );
+  }
+
   return (
     <Routes>
-      {/* 1. Auth Page Route */}
-      <Route path="/auth" element={<AuthPage />} />
+      {/* Auth Route */}
+      <Route 
+        path="/auth" 
+        element={!user ? <AuthPage setUser={setUser} fetchData={fetchData} /> : <Navigate to="/notes" />} 
+      />
 
-      {/* 2. Protected Notes Dashboard Route */}
-      <Route path="/notes" element={NotesDashboard} />
+      {/* Protected Notes Route */}
+      <Route
+        path="/notes"
+        element={
+          <ProtectedRoute user={user}>
+            {NotesDashboard}
+          </ProtectedRoute>
+        }
+      />
 
-      {/* 3. Default redirect to Auth page */}
-      <Route path="*" element={<Navigate to="/auth" />} />
+      {/* Default Route: if user is logged in, redirect to /notes; otherwise, redirect to /auth */}
+      <Route path="*" element={<Navigate to={user ? "/notes" : "/auth"} />} />
     </Routes>
   );
 }

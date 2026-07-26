@@ -1,38 +1,32 @@
 # Notes App
 
-A full-stack Notes Management application built with the MERN Stack, featuring secure JWT authentication, complete CRUD operations, responsive UI, and seamless REST API integration.
+A full-stack Notes Management application built with the MERN Stack, featuring secure JWT authentication, complete CRUD functionality, responsive UI, and seamless REST API integration.
 
+- 🔗 **Live Demo:** [hyper-notes-app.vercel.app](https://hyper-notes-app.vercel.app)
 ---
 
-## 🚀 Features
+## ✨ Features
 
 - 🔐 User Registration & Login
-- 🍪 JWT Authentication using Cookies
-- 📝 Create Notes
-- ✏️ Edit Notes
-- 🗑️ Delete Notes
+- 🍪 JWT Authentication with Cookies
+- 📝 Create, Edit & Delete Notes
 - 📋 View All Notes
 - 📱 Responsive User Interface
 - ⚡ Loading States
 - ✅ Form Validation
 - ❌ Error Handling
-- 🔄 Real-time UI Updates after CRUD Operations
+- 🔄 Real-time CRUD Updates
 
 ---
 
-## 📸 Screenshots
+## 📸 Preview
 
-### Authentication
 
-| Register | Login |
-|----------|-------|
-| ![Register](./screenshots/register.png) | ![Login](./screenshots/login.png) |
-
-### Notes Dashboard
-
-| Notes Dashboard | Edit Note |
-|-----------------|-----------|
-| ![Dashboard](./screenshots/dashboard.png) | ![Edit](./screenshots/edit-note.png) |
+<p align="center">
+  <img src="./preview/auth.png" width="48%" alt="Authentication">
+  &nbsp;
+  <img src="./preview/notes-dashboard.png" width="48%" alt="Notes Dashboard">
+</p>
 
 ---
 
@@ -52,27 +46,6 @@ A full-stack Notes Management application built with the MERN Stack, featuring s
 ### Database
 - MongoDB
 - Mongoose
-
----
-
-## 📂 Folder Structure
-
-```
-Notes-App/
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── controllers/
-│   ├── server.js
-│   └── package.json
-```
 
 ---
 
@@ -96,12 +69,12 @@ Notes-App/
 
 ---
 
-## ⚙️ Installation
+## 🚀 Installation
 
-### Clone Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/mern-notes-app.git
+git clone https://github.com/iharshkaran/notes-app.git
 ```
 
 ### Backend
@@ -122,52 +95,21 @@ npm run dev
 
 ---
 
-## ✨ Key Features
+## 💡 What I Learned
 
-- Full Stack MERN Architecture
+- Building Full-Stack MERN Applications
 - JWT Authentication
-- Cookie-based Authentication
-- Complete CRUD Functionality
-- RESTful APIs
-- Responsive Design
-- React Hooks
-- Axios Integration
-- MongoDB Database
-- Loading & Error Handling
-
----
-
-## 📚 What I Learned
-
-- Building full-stack MERN applications
-- JWT Authentication
-- Cookie-based Authentication
-- React Hooks & State Management
+- Cookie-Based Authentication
 - REST API Development
-- MongoDB & Mongoose
-- Axios API Integration
 - CRUD Operations
-- Error Handling
+- React Hooks & State Management
+- Axios API Integration
+- MongoDB & Mongoose
 - Responsive UI Design
-
----
-
-## 🔮 Future Improvements
-
-- Password Hashing (bcrypt)
-- Protected Routes
-- Search Notes
-- Categories & Tags
-- Rich Text Editor
-- Dark Mode
-- Image Upload
-- Pagination
+- Error & Loading State Handling
 
 ---
 
 ## 👨‍💻 Author
 
 **Harsh**
-
-- GitHub: https://github.com/your-username
-- LinkedIn: https://linkedin.com/in/your-profile

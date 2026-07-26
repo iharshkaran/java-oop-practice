@@ -7,7 +7,7 @@ import AuthPage from './pages/AuthPage'
 
 axios.defaults.withCredentials = true;
 
-const API_BASE_URL = "http://localhost:3000/notes";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/notes`;
 
 const App = () => {
   const [title, setTitle] = useState('')
@@ -21,7 +21,7 @@ const App = () => {
   const fetchData = async () => {
     try {
       setError(null);
-      const response = await axios.get(API_BASE_URL);
+      const response = await axios.get(API_BASE_URL,{withCredentials: true});
       setNotes(response.data.notes || []);
     } catch (err) {
       console.error("Error fetching notes:", err);

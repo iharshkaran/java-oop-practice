@@ -24,10 +24,10 @@ const AuthPage = () => {
         setLoading(true);
         setError('');
 
-        const BASE_URL = "http://localhost:3000";
+        const BASE_URL = import.meta.env.VITE_API_URL;
         const endpoint = isLogin ? `${BASE_URL}/auth/login` : `${BASE_URL}/auth/register`;
 
-        // 🟢 Fix 1: Login ke waqt sirf email & password hi bhejo
+        // email & password for login
         const payload = isLogin
             ? { email: formData.email, password: formData.password }
             : formData;
@@ -42,7 +42,7 @@ const AuthPage = () => {
         } catch (err) {
             console.error("Auth Error Details:", err.response); // Debugging ke liye
 
-            // 🟢 Fix 2: Exact backend error response text show karein
+            // backend error response
             setError(
                 err.response?.data?.message ||
                 err.message ||

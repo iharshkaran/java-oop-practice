@@ -8,6 +8,18 @@ import ProtectedRoute from './components/ProtectedRoute'
 
 axios.defaults.withCredentials = true;
 
+// FIX: Axios Request Interceptor (token for iPhone/Safari)
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 const API_BASE_URL = `${import.meta.env.VITE_API_URL}/notes`;
 
 const App = () => {
@@ -36,6 +48,7 @@ const App = () => {
       // if backend returns 401 (Unauthorized) or 403 (Forbidden), set user as not logged in
       if (err.response && (err.response.status === 401 || err.response.status === 403)) {
         setUser(null);
+        localStorage.removeItem('token'); // clear token from localStorage
       } else {
         setError("Failed to load notes. Please check server.");
       }

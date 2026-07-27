@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const cookieOptions = {
   httpOnly: true,
   secure: true,      // Render (HTTPS) ke liye mandatory
-  sameSite: "none",  // Cross-domain (localhost to render) ke liye mandatory
+  sameSite: "none",  // Cross-domain ke liye mandatory
 };
 
 // Register User
@@ -27,8 +27,10 @@ router.post("/register", async (req, res) => {
         // Send Secure Cookie
         res.cookie("token", token, cookieOptions);
 
+        // FIX: Token JSON body mein bhi return karo (Safari/iPhone ke liye)
         res.status(201).json({
             message: "User registered successfully",
+            token, 
             user: newUser
         });
     } catch (err) {
@@ -54,8 +56,10 @@ router.post("/login", async (req, res) => {
         // Send Secure Cookie
         res.cookie("token", token, cookieOptions);
 
+        // FIX: Token JSON body mein bhi return karo (Safari/iPhone ke liye)
         res.status(200).json({
             message: "User logged in successfully",
+            token,
             user
         });
     } catch (err) {

@@ -6,8 +6,11 @@ const mongoose = require("mongoose");
 
 
 const authMiddleware = (req, res, next) => {
-    // Headers ki bajaye cookies se token padho
-    const token = req.cookies.token;
+    // 1. Pehle Check karo ki Cookie me token hai
+    // 2. Agar Cookie me nahi mila, toh Authorization Header (Bearer token) check karo
+    const token = 
+        req.cookies?.token || 
+        req.headers.authorization?.split(" ")[1]; // Bearer token format me hona chahiye
 
     if (!token) {
         return res.status(401).json({ message: "Pehle login kariye!" });
@@ -15,7 +18,7 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // Isme userId mil gaya
+        req.user = decoded; // User id
         next();
     } catch (err) {
         return res.status(403).json({ message: "Invalid ya Expired Token" });
